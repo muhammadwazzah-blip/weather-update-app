@@ -1,0 +1,14 @@
+{
+  "name": "weather-update-app",
+  "version": "1.0.0",
+  "description": "MERN stack weather update web application",
+  "scripts": {
+    "server": "cd server && node index.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
