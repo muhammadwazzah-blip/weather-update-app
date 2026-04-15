@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { getWeatherInfo } from "../utils/api";
 import "./WeatherCard.css";
 
 function WeatherCard({ weather, cityName }) {
+  const navigate = useNavigate();
+
   if (!weather || !weather.current) return null;
 
   const current = weather.current;
@@ -26,8 +29,12 @@ function WeatherCard({ weather, cityName }) {
     };
   });
 
+  const handleClick = () => {
+    navigate("/weather/detail", { state: { weather, cityName } });
+  };
+
   return (
-    <div className="weather-card">
+    <div className="weather-card weather-card-clickable" onClick={handleClick} role="link" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && handleClick()}>
       <div className="weather-current">
         <div className="weather-main">
           <span className="weather-emoji">{currentInfo.icon}</span>
@@ -81,6 +88,13 @@ function WeatherCard({ weather, cityName }) {
           </div>
         </div>
       )}
+
+      <div className="weather-card-hint">
+        <span>Tap for details</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </div>
     </div>
   );
 }
